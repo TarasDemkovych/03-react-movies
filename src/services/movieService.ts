@@ -18,14 +18,25 @@ export async function fetchMovies({
   query,
   page = 1,
 }: FetchMoviesProps): Promise<MoviesResponse> {
-  const response = await axios.get<MoviesResponse>(
-    `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=${page}`,
-    {
-      headers: {
-        Authorization: `Bearer ${myKeyTmdb}`,
-        accept: 'application/json',
-      },
-    }
-  );
-  return response.data;
+  try {
+    const response = await axios.get<MoviesResponse>(
+      `https://api.themoviedb.org/3/search/movie`,
+      {
+        params: {
+          query,
+          include_adult: false,
+          language: 'en-US',
+          page,
+        },
+        headers: {
+          Authorization: `Bearer ${myKeyTmdb}`,
+          accept: 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.error('Fetch error:', error);
+    throw error;
+  }
 }

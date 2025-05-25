@@ -6,8 +6,9 @@ interface MovieGridProps {
   movies: Movie[];
 }
 
-const placeholderImg =
-  "https://placeholder.com/300x450/0057B8/FFD700?text=Freedom+for+Ukraine";
+
+
+const placeholderImg = "https://placehold.co/300x450?text=No+Image";
 
 export default function MovieGrid({ onSelect, movies }: MovieGridProps) {
   return (
@@ -19,14 +20,14 @@ export default function MovieGrid({ onSelect, movies }: MovieGridProps) {
               <img
                 className={css.image}
                 src={
-                  movie.poster_path !== null
+                  movie.poster_path
                     ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                     : placeholderImg
                 }
-                alt={movie.title}
+                alt={movie.title || "Untitled"}
                 loading="lazy"
               />
-              <h2 className={css.title}>{movie.title}</h2>
+              <h2 className={css.title}>{movie.title || "Untitled"}</h2>
             </div>
           </li>
         );
